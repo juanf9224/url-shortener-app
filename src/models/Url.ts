@@ -2,8 +2,8 @@ import { Schema, model } from 'mongoose';
 
 const UrlSchema: Schema = new Schema({
     url: String,
-    shortUrl: String,
-    created_at: String,
+    shortUrl: { type: String, unique: true },
+    created_at: {type: Date, default: Date.now},
     visits: Number
 });
 
