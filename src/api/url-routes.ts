@@ -7,12 +7,34 @@ import shortenUrl from '../utils/shorten-url-util';
 const UrlRoutes: ServerRoute[] = [
     {
         method: 'GET',
-        path: '/api/v1/url/{id}',
+        path: '/api/v1/url/{shortUrl}',
+        options:{
+            cors: true,
+        },        
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
-                let url = await Url.findById(req.params.id);
-                return res.response(JSON.stringify(url));
+                console.log(req.params);
+                let url: any = await Url.findOne({shortUrl: req.params.shortUrl});
+                return res.redirect(url.url);
             } catch (error) {
+                console.log(error);
+                return res.response(error).code(500);
+            }
+        }
+    },
+    {
+        method: 'GET',
+        path: '/api/v1/url/visit/{shortUrl}',
+        options:{
+            cors: true,
+        },        
+        handler: async (req: Request, res: ResponseToolkit) => {            
+            try {
+                console.log(req.params);
+                let url: any = await Url.findOneAndUpdate({shortUrl: req.params.shortUrl}, {$inc: {visit: 1}});
+                return res.response(url).code(200);
+            } catch (error) {
+                console.log(error);
                 return res.response(error).code(500);
             }
         }
@@ -38,7 +60,8 @@ const UrlRoutes: ServerRoute[] = [
                 payload: {
                     url: Joi.string().required() && Joi.string().uri(),
                 }
-            }
+            },
+            cors: true
         },
         handler: async (req: Request, res: ResponseToolkit) => {
             const payload: any = req.payload;
