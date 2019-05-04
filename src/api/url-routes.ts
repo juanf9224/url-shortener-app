@@ -79,9 +79,11 @@ const UrlRoutes: ServerRoute[] = [
                     
                     console.log('url: ', url);
                     const shortUrl = shortenUrl(url);
+                    const date = new Date();
                     let urlModel = new Url({
                         url,
-                        shortUrl
+                        shortUrl,
+                        date
                     }); 
                     
                     const response = await urlModel.save().catch(err => console.error(err));
