@@ -13,7 +13,8 @@ const connectionStringLocal = process.env.DB_CONNECTION_STRING || '';
 const ConnectionUtil = {
     mongooseConnect: () => mongoose.connect(connectionStringLocal, 
         { 
-            useNewUrlParser: true, 
+            useNewUrlParser: true,
+            useFindAndModify: false,
             reconnectTries: Number.MAX_VALUE 
         },
     ),

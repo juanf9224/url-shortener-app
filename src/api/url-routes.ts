@@ -66,7 +66,7 @@ const UrlRoutes: ServerRoute[] = [
         handler: async (req: Request, res: ResponseToolkit) => {
             const payload: any = req.payload;
             try {   
-                let urlFound = await Url.findOneAndUpdate({url: payload.url}, { $inc: {visits: 1}});
+                let urlFound = await Url.findOne({url: payload.url});
                 if (urlFound) {
                     console.log('entry found');
                     return res.response(urlFound)
