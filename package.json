@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start-dev": "SET NODE_ENV=development && concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js\"",
+    "start-dev": "SET NODE_ENV=development && concurrently --kill-others \"nodemon src/index.ts\"",
     "start": "export NODE_ENV=production && concurrently --kill-others \"tsc -w\" \"node dist/index.js\""
   },
   "author": "Juan Fernandez",
@@ -28,6 +28,7 @@
     "jest": "^24.7.1",
     "joi": "^14.3.1",
     "mongoose": "^5.4.22",
+    "mongoose-auto-increment": "^5.0.1",
     "typescript": "^3.4.2"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "@types/hapi": "^18.0.1",
     "@types/inert": "^5.1.2",
     "@types/mongoose": "^5.3.27",
+    "@types/mongoose-auto-increment": "^5.0.30",
     "@types/node": "^11.13.1",
     "@types/vision": "^5.3.6",
     "concurrently": "^2.2.0",

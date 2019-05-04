@@ -15,7 +15,7 @@ const UrlRoutes: ServerRoute[] = [
             try {
                 console.log(req.params);
                 let url: any = await Url.findOne({shortUrl: req.params.shortUrl});
-                return res.redirect(url.url);
+                return res.redirect(url.url).code(302);
             } catch (error) {
                 console.log(error);
                 return res.response(error).code(500);
@@ -76,21 +76,23 @@ const UrlRoutes: ServerRoute[] = [
                     const { 
                         url
                     } = payload;
-                    
-                    console.log('url: ', url);
-                    const shortUrl = shortenUrl(url);
+
                     const date = new Date();
                     let urlModel = new Url({
                         url,
-                        shortUrl,
                         date
                     }); 
                     
-                    const response = await urlModel.save().catch(err => console.error(err));
-                    return res.response(JSON.stringify(response));
+                    let response = await urlModel.save();
+
+                    const shortenedUrl = shortenUrl(`${response._id}`);
+                    const updated = await Url.findOneAndUpdate({_id: response._id}, {shortUrl: shortenedUrl}, {new: true});
+                    
+                    return res.response(JSON.stringify(updated)).code(201);
                 }                    
             } catch (error) {
-                return res.response(error).code(500);
+                // console.log(error);
+                return res.response(JSON.stringify(error)).code(500);
             }
         }
     }
