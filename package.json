@@ -9,6 +9,17 @@
   },
   "author": "Juan Fernandez",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanf9224/url-shortener-app.git"
+  },
+  "keywords": [
+    "powerfullapi"
+  ],
+  "bugs": {
+    "url": "https://github.com/juanf9224/url-shortener-app/issues"
+  },
+  "homepage": "https://github.com/juanf9224/url-shortener-app#readme",
   "dependencies": {
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",

@@ -2,12 +2,14 @@ import * as hapi from 'hapi';
 import ConnectionUtil from './connection/ConnectionUtil';
 import ApiRoutes from './api/routes';
 
-import * from 'dotenv';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 // Server parameters
 const server: hapi.Server = new hapi.Server({
-    port: '5000',
-    host: 'localhost'
+    host: process.env.SERVER_HOST,
+    port: process.env.SERVER_PORT
 });
 
 // Connect to db
