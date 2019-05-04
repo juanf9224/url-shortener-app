@@ -23,7 +23,7 @@ const UrlRoutes: ServerRoute[] = [
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
                 console.log(req.payload);
-                let url = await Url.find();                
+                let url = await Url.find().sort({visits: -1}).limit(100);                
                 return res.response(url);
             } catch (error) {
                 return res.response(error).code(500);
