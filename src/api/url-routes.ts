@@ -46,6 +46,9 @@ const UrlRoutes: ServerRoute[] = [
     },
     {
         method: 'GET',
+        options: {
+            cors: true
+        },
         path: '/api/v1/url/findTop',     
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
