@@ -1,4 +1,4 @@
-# Shortener Client App
+# Shortener App Server
 
 This project was created with NodeJS 10.13.0, HapiJS as the framework, Cheerio for web scrapping, 
 mongoose to handle mongodb connection and operations, dotenv to be able to use a .env file to hold environment variables.
