@@ -7,8 +7,8 @@ export const scrappUrl = (url: string) => {
             const html = await rp.get(url);                    
             const data: any = cheerio
             .parseHTML(cheerio.load(html)
-            .html('head > title'))[0];                  
-            return data.children[0].data;
+            .html('head > title'))[0] || null;                  
+            return data.children[0].data || null;
         },
         getUrls: async () => {        
             const html = await rp.get(url);                    

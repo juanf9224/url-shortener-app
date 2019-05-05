@@ -28,6 +28,6 @@ const saveAll = async (data: any[]) => {
     });
     await Url.create(data, (err: any, docs: any[]) => {
         if (err) return console.error(err);
-        console.log('bulk save succeded 😄 😎', docs[0]);
+        console.log('bulk save succeded 😄 😎');
     });
 }

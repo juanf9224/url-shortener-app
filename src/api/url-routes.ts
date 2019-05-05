@@ -36,7 +36,7 @@ const UrlRoutes: ServerRoute[] = [
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
                 // Increment visits counter on visited url from client
-                let url: any = await Url.findOneAndUpdate({shortUrl: req.params.shortUrl}, {$inc: {visit: 1}});
+                let url: any = await Url.findOneAndUpdate({shortUrl: req.params.shortUrl}, {$inc: {visits: 1}}, {new: true});
                 return res.response(url).code(200);
             } catch (error) {
                 console.error(error);
@@ -51,7 +51,7 @@ const UrlRoutes: ServerRoute[] = [
             try {
                 // Fetch the top 100 visited urls with descending sort 
                 let urls: any[] = await Url.find().sort({visits: -1}).limit(100);          
-                return res.response(urls);
+                return res.response(urls).code(200);
             } catch (error) {
                 console.error(error);
                 return res.response(error).code(500);
@@ -88,7 +88,7 @@ const UrlRoutes: ServerRoute[] = [
                     const date = new Date();
                     
                     // crawl title form url before it is saved
-                    const title = scrappUrl(url).getTitle();
+                    const title = await scrappUrl(url).getTitle();
 
                     let urlModel = new Url({
                         url,
