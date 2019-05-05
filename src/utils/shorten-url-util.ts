@@ -2,7 +2,7 @@
 const chars = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcde
 fghijklmnopqrstuvwxyz0123456789`
 // Shorten url logic
-const shortenUrl = (url: string) => {
+export const shortenUrl = (url: string) => {
     return Base64.encode(url);
 }
 
@@ -76,5 +76,3 @@ const Base64 = {
 
     }
 }
-
-export default shortenUrl;
