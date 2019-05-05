@@ -6,10 +6,10 @@ mongoose to handle mongodb connection and operations, dotenv to be able to use a
 The server is hosted on Amazon ec2: [Here](http://ec2-18-223-112-101.us-east-2.compute.amazonaws.com)
 
 # How to setup
-if not in the project structure navigate to it, in the command line run `npm install` to install all dependencies.
+If not in the project directory navigate to it, in the command line run `npm install` to install all dependencies.
 
 # Run the server
-to start the server in development mode, run `npm run start-dev` which will execute the bot to populate the database with
+To start the server in development mode, run `npm run start-dev` which will execute the bot to populate the database with
 the json file with 150 records of different urls.
 
 # Endpoints
