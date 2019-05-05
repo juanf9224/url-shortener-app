@@ -1,9 +1,16 @@
 # Shortener Client App
 
 This project was created with NodeJS 10.13.0, HapiJS as the framework, Cheerio for web scrapping, 
-mongoose to handle mongodb connection and operations, dotenv to be able to use a .env file to hold enviroment variables.
+mongoose to handle mongodb connection and operations, dotenv to be able to use a .env file to hold environment variables.
 
 The server is hosted on Amazon ec2: [Here](http://ec2-18-223-112-101.us-east-2.compute.amazonaws.com)
+
+# Prerequisites
+MongoDB must be installed on the environment (Docker could be used to load it painlessly),
+the connection string for a local connection is: `mongodb://localhost:27017/shortener-db`,
+it can be modified in the env file to any other name or port depending on the environment and configuration
+
+> if NODE_ENV variable is set to production, a cluster on the cloud will be used, hosted at [CloudMongoDB](https://cloud.mongodb.com/)
 
 # How to setup
 If not in the project directory navigate to it, in the command line run `npm install` to install all dependencies.
