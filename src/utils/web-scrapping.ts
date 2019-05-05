@@ -4,11 +4,10 @@ import * as cheerio from 'cheerio';
 export const scrappUrl = (url: string) => {
     return ({
         getTitle: async () => {        
-            const html = await rp.get(url);                    
-            const data: any = cheerio
-            .parseHTML(cheerio.load(html)
-            .html('head > title'))[0] || null;                  
-            return data.children[0].data || null;
+            const html = await rp.get(url); 
+            const rawTitle = cheerio.load(html).html('head > title');
+            let titles: CheerioElement[] = rawTitle ? cheerio.parseHTML(cheerio.load(html).html('head > title')) as CheerioElement[] : [];
+            return await titles.length > 0 && titles[0].children.length > 0 ? titles[0].children[0].data : '';
         },
         getUrls: async () => {        
             const html = await rp.get(url);                    

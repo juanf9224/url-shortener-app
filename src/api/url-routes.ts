@@ -88,8 +88,8 @@ const UrlRoutes: ServerRoute[] = [
                     const date = new Date();
                     
                     // crawl title form url before it is saved
-                    const title = await scrappUrl(url).getTitle();
-
+                    let title = await scrappUrl(url).getTitle().catch(() => `Could not get title for this url: ${url}`);
+                    title = title ? title: '';
                     let urlModel = new Url({
                         url,
                         title,

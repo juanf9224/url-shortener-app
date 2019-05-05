@@ -9,9 +9,9 @@ const db = process.env.DB_REMOTE || 'shortener-db?retryWrites=true';
 const url = process.env.DB_REMOTE_URL || '@powerfull-api-mongodb-cluster-gbmsd.mongodb.net/';
 const connectionString = `mongodb+srv://${user}:${pwd}${url}${db}`;
 const connectionStringLocal = process.env.DB_CONNECTION_STRING || '';
-
+const connectionStr = process.env.NODE_ENV === 'development' ? connectionStringLocal : connectionString;
 const ConnectionUtil = {
-    mongooseConnect: () => mongoose.connect(connectionString, 
+    mongooseConnect: () => mongoose.connect(connectionStr, 
         { 
             useNewUrlParser: true,
             useFindAndModify: false,

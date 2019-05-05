@@ -7,7 +7,7 @@ const UrlSchema: Schema = new Schema({
     url: { type: String },
     title: { type: String },
     created_at: {type: Date},
-    shortUrl: { type: String, unique: true },
+    shortUrl: { type: String },
     visits: { type: Number }
 });
 
