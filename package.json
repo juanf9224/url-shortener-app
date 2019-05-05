@@ -1,0 +1,51 @@
+{
+  "name": "url-shortener-app",
+  "version": "1.0.0",
+  "description": "Url shortener",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start-dev": "SET NODE_ENV=development && concurrently --kill-others \"nodemon src/index.ts\"",
+    "start": "export NODE_ENV=production && concurrently --kill-others \"tsc -w\" \"node dist/index.js\""
+  },
+  "author": "Juan Fernandez",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanf9224/url-shortener-app.git"
+  },
+  "keywords": [
+    "powerfullapi"
+  ],
+  "bugs": {
+    "url": "https://github.com/juanf9224/url-shortener-app/issues"
+  },
+  "homepage": "https://github.com/juanf9224/url-shortener-app#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "hapi": "^18.1.0",
+    "jest": "^24.7.1",
+    "joi": "^14.3.1",
+    "mongoose": "^5.4.22",
+    "mongoose-auto-increment": "^5.0.1",
+    "request-promise": "^4.2.4",
+    "typescript": "^3.4.2"
+  },
+  "devDependencies": {
+    "@types/atob": "^2.1.2",
+    "@types/btoa": "^1.2.3",
+    "@types/cheerio": "^0.22.11",
+    "@types/dotenv": "^6.1.1",
+    "@types/hapi": "^18.0.1",
+    "@types/inert": "^5.1.2",
+    "@types/mongoose": "^5.3.27",
+    "@types/mongoose-auto-increment": "^5.0.30",
+    "@types/node": "^11.13.1",
+    "@types/request-promise": "^4.1.43",
+    "@types/vision": "^5.3.6",
+    "concurrently": "^2.2.0",
+    "nodemon": "^1.18.10"
+  }
+}
