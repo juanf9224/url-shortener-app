@@ -1,3 +1,4 @@
+import { populateDB } from './bot/db-populate';
 import * as hapi from 'hapi';
 import ConnectionUtil from './connection/ConnectionUtil';
 import ApiRoutes from './api/routes';
@@ -13,6 +14,12 @@ const start = async () => {
 
     //init evn variables
     dotenv.config();
+
+    if(process.env.ENV_MODE == 'development') {
+        // populate db with scrapped urls
+        console.log('development mode');
+        populateDB();
+    }
 
     // Connect to db
     ConnectionUtil.mongooseConnect();

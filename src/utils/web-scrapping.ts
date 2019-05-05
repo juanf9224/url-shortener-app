@@ -10,6 +10,13 @@ export const scrappUrl = (url: string) => {
             .html('head > title'))[0];                  
             return data.children[0].data;
         },
+        getUrls: async () => {        
+            const html = await rp.get(url);                    
+            const data: any = cheerio
+            .parseHTML(cheerio.load(html)
+            .html('#top-500-domains > table > tbody'));                  
+            return data;
+        },
         getBody: async () => {        
             const html = await rp.get(url);                    
             const data: any = cheerio
