@@ -13,12 +13,10 @@ const UrlRoutes: ServerRoute[] = [
         },        
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
-                
+                const params = req.params;
                 // Redirect to specified shortUrl
-                let url: any = await Url.findOne({shortUrl: req.params.shortUrl});                
+                let url: any = await Url.findOne({shortUrl: params.shortUrl});                
                 return res.redirect(url.url)
-                .header('content-type', 'text/plain')
-                .location(url.url)
                 .code(302);
 
             } catch (error) {
