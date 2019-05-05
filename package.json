@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/juanf9224/url-shortener-app#readme",
   "dependencies": {
+    "@types/puppeteer": "^1.12.4",
+    "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "hapi": "^18.1.0",
@@ -29,17 +31,21 @@
     "joi": "^14.3.1",
     "mongoose": "^5.4.22",
     "mongoose-auto-increment": "^5.0.1",
+    "puppeteer": "^1.15.0",
+    "request-promise": "^4.2.4",
     "typescript": "^3.4.2"
   },
   "devDependencies": {
     "@types/atob": "^2.1.2",
     "@types/btoa": "^1.2.3",
+    "@types/cheerio": "^0.22.11",
     "@types/dotenv": "^6.1.1",
     "@types/hapi": "^18.0.1",
     "@types/inert": "^5.1.2",
     "@types/mongoose": "^5.3.27",
     "@types/mongoose-auto-increment": "^5.0.30",
     "@types/node": "^11.13.1",
+    "@types/request-promise": "^4.1.43",
     "@types/vision": "^5.3.6",
     "concurrently": "^2.2.0",
     "nodemon": "^1.18.10"

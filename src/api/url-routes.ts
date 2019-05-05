@@ -2,7 +2,7 @@ import * as Joi from 'joi';
 import { ServerRoute, Request, ResponseToolkit } from 'hapi';
 
 import Url from "../models/Url";
-import shortenUrl from '../utils/shorten-url-util';
+import { shortenUrl, scrappUrl } from '../utils';
 
 const UrlRoutes: ServerRoute[] = [
     {
@@ -13,11 +13,16 @@ const UrlRoutes: ServerRoute[] = [
         },        
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
-                console.log(req.params);
-                let url: any = await Url.findOne({shortUrl: req.params.shortUrl});
-                return res.redirect(url.url).code(302);
+                
+                // Redirect to specified shortUrl
+                let url: any = await Url.findOne({shortUrl: req.params.shortUrl});                
+                return res.redirect(url.url)
+                .header('content-type', 'text/plain')
+                .location(url.url)
+                .code(302);
+
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 return res.response(error).code(500);
             }
         }
@@ -30,11 +35,11 @@ const UrlRoutes: ServerRoute[] = [
         },        
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
-                console.log(req.params);
+                // Increment visits counter on visited url from client
                 let url: any = await Url.findOneAndUpdate({shortUrl: req.params.shortUrl}, {$inc: {visit: 1}});
                 return res.response(url).code(200);
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 return res.response(error).code(500);
             }
         }
@@ -44,10 +49,11 @@ const UrlRoutes: ServerRoute[] = [
         path: '/api/v1/url/findTop',     
         handler: async (req: Request, res: ResponseToolkit) => {            
             try {
-                console.log(req.payload);
-                let url = await Url.find().sort({visits: -1}).limit(100);                
-                return res.response(url);
+                // Fetch the top 100 visited urls with descending sort 
+                let urls: any[] = await Url.find().sort({visits: -1}).limit(100);          
+                return res.response(urls);
             } catch (error) {
+                console.error(error);
                 return res.response(error).code(500);
             }
         }
@@ -67,32 +73,42 @@ const UrlRoutes: ServerRoute[] = [
             const payload: any = req.payload;
             try {   
                 let urlFound = await Url.findOne({url: payload.url});
+
+                // If a record with this url exists then return thath one
                 if (urlFound) {
                     console.log('entry found');
                     return res.response(urlFound)
                     .code(200)
                 } else {
+                    // If no record of this url exists then save it 
                     console.log('Entry not found in db, saving new')
                     const { 
                         url
                     } = payload;
-
                     const date = new Date();
+                    
+                    // crawl title form url before it is saved
+                    const title = scrappUrl(url).getTitle();
+
                     let urlModel = new Url({
                         url,
+                        title,
                         date
                     }); 
                     
                     let response = await urlModel.save();
 
+                    // Shorten url with the shortenUrl util
                     const shortenedUrl = shortenUrl(`${response._id}`);
+
+                    // Update this url to have newly generated code as shortUrl
                     const updated = await Url.findOneAndUpdate({_id: response._id}, {shortUrl: shortenedUrl}, {new: true});
                     
                     return res.response(JSON.stringify(updated)).code(201);
                 }                    
             } catch (error) {
-                // console.log(error);
-                return res.response(JSON.stringify(error)).code(500);
+                console.error(error);
+                return res.response(error).code(500);
             }
         }
     }
