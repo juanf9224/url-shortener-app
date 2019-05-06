@@ -10,8 +10,8 @@ export const populateDB = async () => {
 
     if(process.env.BOT_POPULATE_SOURCE === 'local'){
         // Fetch documents from json file
-        const bulkDataFromfile = fs.readFileSync(__dirname+'/urls.json');
-        bulkData = (JSON.parse(bulkDataFromfile.toString()) as []).map((u: any) => ({
+        const bulkDataFromFile = fs.readFileSync(__dirname+'/urls.json');
+        bulkData = (JSON.parse(bulkDataFromFile.toString()) as []).map((u: any) => ({
             url: u.url,
             title: u.title,
             created_at: Date.now(),
@@ -45,7 +45,7 @@ export const populateDB = async () => {
         // console.log(bulkData);                 
         saveAll(bulkData);
     }, 3000);
-}
+};
 
 const saveAll = async (data: any[]) => {
     // Delete Collections to have a clean db before bulk save;
@@ -54,7 +54,7 @@ const saveAll = async (data: any[]) => {
     });    
     await Url.create(data, (err: any, docs: any[]) => {
         if (err) return console.error(err);
-        console.log('bulk save succeded 😄 😎');
+        console.log('bulk save succeeded 😄 😎');
         process.env.BOT_POPULATE_SOURCE === 'remote' ? docs.forEach(d => {
             scrappUrl(d.url).getTitle().then(t => {
                 Url.updateOne({_id: d._id}, {title: t}, (err, data) =>{
@@ -64,4 +64,4 @@ const saveAll = async (data: any[]) => {
             }).catch(() => console.error(`Could not get title for this url: ${d.url} 😞`))
         }) : console.log('Local Data');
     });
-}
+};
