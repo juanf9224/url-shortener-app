@@ -38,7 +38,7 @@ Curl could be used to test the endpoints with the following commands:
 
 # Algorithm for shortening the urls
 
-Base64 encoding was implemented for this purpose which converts every character of the url to its binary counterpart in an ASCII format by translating it into a radix64,
+Base64 encoding was implemented for this purpose which converts every character of the url (in this case i'm using the id of the record on the database, this way it'll be even shorter) to its binary counterpart in an ASCII format by translating it into a radix64,
 this allows the short code generated to be unique to its origin, there cant be two equal codes for different inputs, this makes it perfect for the purpose of this app,
 after some research on how the url shortening services do it, i decided to take this approach.
 
