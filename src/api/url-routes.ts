@@ -75,14 +75,14 @@ const UrlRoutes: ServerRoute[] = [
             try {   
                 let urlFound = await Url.findOne({url: payload.url});
 
-                // If a record with this url exists then return thath one
+                // If a record with this url exists then return that one
                 if (urlFound) {
                     console.log('entry found');
                     return res.response(urlFound)
                     .code(200)
                 } else {
                     // If no record of this url exists then save it 
-                    console.log('Entry not found in db, saving new')
+                    console.log('Entry not found in db, saving new');
                     const { 
                         url
                     } = payload;
@@ -95,7 +95,7 @@ const UrlRoutes: ServerRoute[] = [
                         url,
                         title,
                         date
-                    }); 
+                    });
                     
                     let response = await urlModel.save();
 
